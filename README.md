@@ -147,10 +147,4 @@ https://github.com/user-attachments/assets/afb8e819-560e-4e4d-b195-b892f97af9cc
 
 ---
 
-## **📜 License**
-
-MIT License.
-See the [LICENSE](LICENSE) file for more information.
-
----
 
