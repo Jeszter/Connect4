@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Scores - Connect Four</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/leaderboard.css">
+</head>
+<body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+    <h1><i class="fas fa-trophy"></i> Leaderboard</h1>
+
+    <table class="leaderboard">
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="score, stat : ${scores}">
+            <td>
+                <div class="rank" th:classappend="${stat.index < 3 ? 'rank-' + (stat.index + 1) : ''}">
+                    <span th:text="${stat.index + 1}">1</span>
+                    <th:block th:if="${stat.index < 3}">
+                        <i class="fas fa-crown" style="margin-left: 8px;"></i>
+                    </th:block>
+                </div>
+            </td>
+            <td>
+                <div class="player-cell">
+                    <i class="fas fa-user player-icon"></i>
+                    <span th:text="${score.player}">Player Name</span>
+                </div>
+            </td>
+            <td class="points" th:text="${score.points}">100</td>
+            <td class="date" th:text="${#dates.format(score.playedOn, 'MMM d, yyyy')}">Apr 15, 2025</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/connect4/menu" class="back-link"><i class="fas fa-arrow-left"></i> Back to Menu</a>
+</div>
+
+</body>
+</html>

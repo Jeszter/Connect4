@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4 - Auth</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="audio-controls-container">
+    <button id="musicToggle" class="audio-control-btn">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+    <div class="volume-control">
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
+    </div>
+</div>
+
+<div class="auth-container">
+    <div class="game-title">
+        <div class="title-piece" style="--color: #e74c3c;"></div>
+        <div class="title-piece" style="--color: #f39c12;"></div>
+        <div class="title-piece" style="--color: #f1c40f;"></div>
+        <div class="title-piece" style="--color: #2ecc71;"></div>
+        <div class="title-piece" style="--color: #3498db;"></div>
+        <div class="title-piece" style="--color: #9b59b6;"></div>
+        <h1>CONNECT<span>4</span></h1>
+    </div>
+
+    <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login" data-translate="login_tab">Login</div>
+        <div class="auth-tab" data-tab="register" data-translate="register_tab">Register</div>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="auth-form active" method="POST" action="/connect4/login">
+        <div class="input-group">
+            <label for="login-username" data-translate="username">Username</label>
+            <input type="text" id="login-username" name="username" placeholder="Enter your username" data-translate-ph="enter_username" required>
+        </div>
+
+        <div class="input-group">
+            <label for="login-password" data-translate="password">Password</label>
+            <input type="password" id="login-password" name="password" placeholder="Enter your password" data-translate-ph="enter_password" required>
+        </div>
+
+        <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink" data-translate="forgot_password">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="submit-btn" data-translate="login_btn">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="auth-form" method="POST" action="/connect4/register">
+        <div class="input-group">
+            <label for="register-username" data-translate="username">Username</label>
+            <input type="text" id="register-username" name="username" placeholder="Choose a username" data-translate-ph="choose_username" required>
+        </div>
+
+        <div class="input-group">
+            <label for="register-email" data-translate="email">Email</label>
+            <input type="email" id="register-email" name="email" placeholder="Enter your email" data-translate-ph="enter_email" required>
+        </div>
+
+        <div class="input-group">
+            <label for="register-password" data-translate="password">Password</label>
+            <input type="password" id="register-password" name="password" placeholder="Create a password" data-translate-ph="create_password" required>
+            <div class="password-strength">
+                <div class="strength-meter" id="strength-meter"></div>
+            </div>
+            <div class="password-requirements">
+                <div class="requirement" id="length-req">
+                    <i class="fas fa-circle"></i> <span data-translate="req_length">At least 8 characters</span>
+                </div>
+                <div class="requirement" id="uppercase-req">
+                    <i class="fas fa-circle"></i> <span data-translate="req_uppercase">At least 1 uppercase letter</span>
+                </div>
+                <div class="requirement" id="number-req">
+                    <i class="fas fa-circle"></i> <span data-translate="req_number">At least 1 number</span>
+                </div>
+                <div class="requirement" id="special-req">
+                    <i class="fas fa-circle"></i> <span data-translate="req_special">At least 1 special character</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="register-confirm" data-translate="confirm_password">Confirm Password</label>
+            <input type="password" id="register-confirm" name="confirmPassword" placeholder="Confirm your password" data-translate-ph="confirm_password_ph" required>
+        </div>
+
+        <button type="submit" class="submit-btn" data-translate="register_btn">Register</button>
+    </form>
+
+    <div id="error-message"></div>
+
+    <!-- Password Recovery Modal -->
+    <div id="passwordRecoveryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> <span data-translate="password_recovery">Password Recovery</span></h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p data-translate="recovery_instructions">Enter your email address to receive a password reset link</p>
+                <div class="input-group">
+                    <input type="email" id="recovery-email" placeholder="Your email address" data-translate-ph="your_email" required>
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="sendRecoveryBtn" class="submit-btn golden-btn">
+                    <i class="fas fa-paper-plane"></i> <span data-translate="send_recovery_link">Send Recovery Link</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Language Switcher -->
+<div class="language-switcher">
+    <div class="language-current" id="languageToggle">
+        <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+        <span>English</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="language-dropdown">
+        <div class="language-option selected" data-lang="en">
+            <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+            <span>English</span>
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="language-option" data-lang="sk">
+            <img src="https://flagcdn.com/w20/sk.png" alt="Slovak" class="language-flag">
+            <span>Slovensky</span>
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+</div>
+
+<script src="/js/register.js" defer></script>
+</body>
+</html>

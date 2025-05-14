@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments - Connect Four</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/comments.css">
+</head>
+<body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+    <h1><i class="fas fa-comments"></i> Game Feedback</h1>
+
+    <div th:if="${comments.size() == 0}" class="no-comments">
+        <p><i class="fas fa-comment-slash"></i> No comments yet. Be the first to share your thoughts!</p>
+    </div>
+
+    <div class="comment-list">
+        <div th:each="comment : ${comments}" class="comment">
+            <div class="player"><i class="fas fa-user"></i> <span th:text="${comment.player}">Player Name</span></div>
+            <div class="comment-text" th:text="${comment.comment}">This is a sample comment text that would be replaced by actual comments from players about their experience with the game.</div>
+            <div class="date"><i class="far fa-clock"></i> <span th:text="${#dates.format(comment.commentedOn, 'MMM d, yyyy · h:mm a')}">Apr 15, 2025 · 4:20 PM</span></div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+
+        <a href="/connect4/menu" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Menu</a>
+    </div>
+</div>
+
+</body>
+</html>

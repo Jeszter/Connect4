@@ -1,0 +1,7 @@
+test/ScoreServiceTest.class
+test/FieldTest.class
+testjpa/ScoreServiceJPATest.class
+testjpa/CommentServiceJPATest.class
+test/CommentServiceTest.class
+testjpa/RatingServiceJPATest.class
+test/RatingServiceTest.class

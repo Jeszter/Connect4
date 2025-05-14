@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #29294d);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.menu-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.game-title {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.game-title h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 0 10px #fff;
+}
+
+.game-title h1 span {
+    color: #f39c12;
+    text-shadow: 0 0 20px #f39c12;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255,255,255,0.05));
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 15px rgba(255,255,255,0.05);
+}
+
+
+.item-icon {
+    font-size: 1.8rem;
+    margin-right: 20px;
+    transition: color 0.4s;
+}
+
+.menu-item:hover .item-icon {
+    color: #f39c12;
+}
+
+.item-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.rating-container {
+    margin-top: 40px;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.stars i {
+    color: #f1c40f;
+    margin: 0 2px;
+}
+
+
+.title-piece {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 4px;
+    background-color: var(--color);
+    box-shadow: 0 0 5px var(--color);
+}

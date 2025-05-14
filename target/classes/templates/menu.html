@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Connect 4 - Ultimate Edition</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+<body>
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+`
+<div class="user-info">
+    <i class="fas fa-user"></i>
+    <span id="usernameDisplay">Guest</span>
+    <button class="logout-btn" id="logoutBtn" title="Logout" data-translate-title="logoutTitle">
+        <i class="fas fa-sign-out-alt"></i>
+    </button>
+</div>
+
+<audio id="backgroundMusic" loop>
+    <source src="https://zvukogram.com/mp3/cats/2921/whispers-of-the-night-sky-20240601-054534.mp3" type="audio/mpeg">
+</audio>
+
+<div class="audio-controls-container">
+    <button id="musicToggle" class="audio-control-btn">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+    <div class="volume-control">
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
+    </div>
+</div>
+
+<!-- Language Switcher -->
+<div class="language-switcher">
+    <div class="language-current" id="languageToggle">
+        <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+        <span>English</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="language-dropdown">
+        <div class="language-option selected" data-lang="en">
+            <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+            <span>English</span>
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="language-option" data-lang="sk">
+            <img src="https://flagcdn.com/w20/sk.png" alt="Slovak" class="language-flag">
+            <span>Slovensky</span>
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+</div>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="menu-container">
+    <div class="game-title">
+        <div class="title-piece" style="--color: #e74c3c;"></div>
+        <div class="title-piece" style="--color: #f39c12;"></div>
+        <div class="title-piece" style="--color: #f1c40f;"></div>
+        <div class="title-piece" style="--color: #2ecc71;"></div>
+        <div class="title-piece" style="--color: #3498db;"></div>
+        <div class="title-piece" style="--color: #9b59b6;"></div>
+        <h1>CONNECT<span>4</span></h1>
+    </div>
+
+    <div class="menu-options">
+        <a href="#" class="menu-item active" id="pvp">
+            <div class="item-icon"><i class="fas fa-user-friends"></i></div>
+            <div class="item-text" data-translate="pvpText">Player vs Player (PvP)</div>
+        </a>
+
+        <a href="#" class="menu-item" id="pvb">
+            <div class="item-icon"><i class="fas fa-robot"></i></div>
+            <div class="item-text" data-translate="pvbText">Player vs Bot (PvB)</div>
+        </a>
+
+        <a href="/connect4/comments" class="menu-item" id="comments">
+            <div class="item-icon"><i class="fas fa-comments"></i></div>
+            <div class="item-text" data-translate="commentsText">Comments</div>
+        </a>
+
+        <a href="/connect4/scores" class="menu-item" id="leaderboard">
+            <div class="item-icon"><i class="fas fa-trophy"></i></div>
+            <div class="item-text" data-translate="leaderboardText">Leaderboard (Top 10)</div>
+        </a>
+
+        <a href="#" class="menu-item" id="skinsBtn">
+            <div class="item-icon"><i class="fas fa-palette"></i></div>
+            <div class="item-text" data-translate="skinsText">Skins</div>
+        </a>
+    </div>
+
+    <div class="rating-container">
+        <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+        </div>
+        <div class="rating-container">
+            <div class="rating-text">
+                <p>Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 0, 0)}">0</span> / 5</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Player Names Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <div class="modal-header">
+            <h2 data-translate="modalTitlePvP">Enter Players' Names</h2>
+            <p data-translate="modalSubtitlePvP">Choose unique nicknames for both players</p>
+        </div>
+
+        <form id="nicknameForm" class="modal-body">
+            <div class="input-group" id="player1InputDiv" style="display: none;">
+                <label for="player1" data-translate="player1Label">Player 1 (Yellow)</label>
+                <input type="text" id="player1" placeholder="First player name" data-translate-ph="player1Placeholder" required>
+            </div>
+
+            <div id="player2InputDiv" class="input-group">
+                <label for="player2" data-translate="player2Label">Player 2 (Red)</label>
+                <input type="text" id="player2" placeholder="Second player name" data-translate-ph="player2Placeholder" required>
+            </div>
+
+            <button type="submit" class="submit-btn" data-translate="startGameBtn">Start Game</button>
+        </form>
+    </div>
+</div>
+
+<!-- Skins Selection Modal -->
+<div id="skinsModal" class="modal skins-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-circle"></div>
+        <div class="modal-circle"></div>
+
+        <div class="modal-header">
+            <h2 data-translate="skinsTitle">Select Skins</h2>
+            <p data-translate="skinsSubtitle">Choose appearance for each player</p>
+        </div>
+
+        <div class="skins-selection">
+            <!-- Player 1 Skins -->
+            <div class="skins-selection">
+                <div class="player-skins">
+                    <h3 class="player-1-title" data-translate="player1Label">Player 1 (Yellow)</h3>
+                    <div class="skins-grid">
+                        <div class="skin-option active" data-player="1" data-skin="classic">
+                            <div class="skin-preview" style="background: #f1c40f;"></div>
+                            <span data-translate="classicSkin">Classic</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="violet">
+                            <div class="skin-preview" style="background: #6c5ce7;"></div>
+                            <span data-translate="violetSkin">Violet</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="emerald">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #2ecc71, #27ae60);"></div>
+                            <span data-translate="emeraldSkin">Emerald</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="obsidian">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #1c1c1c, #3a3a3a);"></div>
+                            <span data-translate="obsidianSkin">Obsidian</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="silver">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #C0C0C0, #A9A9A9);"></div>
+                            <span data-translate="silverSkin">Silver</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="arcane">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #6A0DAD, #B10DC9);"></div>
+                            <span data-translate="arcaneSkin">Arcane</span>
+                        </div>
+                        <div class="skin-option" data-player="1" data-skin="cotton-candy">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #FFB6C1, #87CEFA);"></div>
+                            <span data-translate="cottonCandySkin">Cotton Candy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player-skins">
+                    <h3 class="player-2-title" data-translate="player2Label">Player 2 (Red)</h3>
+                    <div class="skins-grid">
+                        <div class="skin-option active" data-player="2" data-skin="classic">
+                            <div class="skin-preview" style="background: #e74c3c;"></div>
+                            <span data-translate="classicSkin">Classic</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="phantom">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #663399, #4B0082);"></div>
+                            <span data-translate="phantomSkin">Phantom</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="campfire">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #FF4500, #FFD700);"></div>
+                            <span data-translate="campfireSkin">Campfire</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="shadow">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #2c3e50, #000000);"></div>
+                            <span data-translate="shadowSkin">Shadow</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="platinum">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #e5e4e2, #c0c0c0);"></div>
+                            <span data-translate="platinumSkin">Platinum</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="sapphire">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #0F52BA, #1E90FF);"></div>
+                            <span data-translate="sapphireSkin">Sapphire</span>
+                        </div>
+                        <div class="skin-option" data-player="2" data-skin="ruby">
+                            <div class="skin-preview" style="background: linear-gradient(145deg, #9B111E, #C72C41);"></div>
+                            <span data-translate="rubySkin">Ruby</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="applySkins" class="apply-skins-btn" data-translate="applySkinsBtn">Apply Skins</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/menu.js" defer></script>
+<script src="/js/music.js" defer></script>
+<script src="/js/skin.js" defer></script>
+<script src="/js/logout.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Players</title>
+    <link rel="stylesheet" href="/css/set.css">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Enter Player Names</h2>
+    <form action="/connect4/set-players" method="get">
+        <input type="text" name="player1" placeholder="Player 1 Name" required/>
+        <input type="text" name="player2" placeholder="Player 2 Name" required/>
+        <button type="submit">Start Game</button>
+    </form>
+</div>
+
+</body>
+</html>
